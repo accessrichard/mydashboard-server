@@ -44,7 +44,6 @@ class PageController {
 
   public async pages(request: Request, response: Response, next: NextFunction) {
     try {
-      console.log("called getpage");
       const pages = await this.service.getPages();
       response.json({ pages });
     } catch (e) {

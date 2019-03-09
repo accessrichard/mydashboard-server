@@ -23,7 +23,7 @@ class PageService {
         return file.endsWith(config.wiki.extension);
       })
       .map((file) => {
-        return file.replace(".txt", "");
+        return file.replace(config.wiki.extension, "");
       });
   }
 

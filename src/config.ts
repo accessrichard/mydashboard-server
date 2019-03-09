@@ -3,10 +3,13 @@ import path from "path";
 export default {
   app: {
     devCorsAllowedUrl: "*",
-    port: 8081
+    port: 8082
   },
-  wiki: {
+  todo: {
+    path: path.join(process.cwd(), "data", "todo.json")
+  },
+   wiki: {
     directory: path.join(process.cwd(), "data"),
-    extension: ".txt"
-  }
+    extension: ".md"
+  },
 };
