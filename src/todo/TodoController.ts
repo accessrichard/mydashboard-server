@@ -15,6 +15,7 @@ class TodoController {
   public intializeRoutes() {
     this.router.get(this.path, this.get.bind(this));
     this.router.post(this.path, this.post.bind(this));
+    this.router.delete(this.path + "/:id", this.delete.bind(this));
   }
 
   public async get(request: Request, response: Response, next: NextFunction) {
@@ -28,8 +29,18 @@ class TodoController {
 
   public async post(request: Request, response: Response, next: NextFunction) {
     try {
-      const todos = await this.service.saveTodos(request.body.todos);
-      response.json({ todos });
+      const todo = await this.service.addTodo(request.body.todo);
+      response.json({ todo });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async delete(request: Request, response: Response, next: NextFunction) {
+    try {
+      const id = parseInt(request.params.id, 10);
+      const todo = await this.service.deleteTodo(id);
+      response.json({ todo });
     } catch (e) {
       next(e);
     }
