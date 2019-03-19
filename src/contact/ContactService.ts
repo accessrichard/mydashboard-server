@@ -24,38 +24,59 @@ class ContactService {
     });
   }
 
-  public async delete(name: string): Promise<IContact> {
+  public async delete(id: number): Promise<IContact> {
     const contacts = await this.getContacts();
-    const contactIndex = contacts.map((c) => {
-        return c.name;
+    const contactIndex = contacts
+      .map((c) => {
+        return c.id;
       })
-      .indexOf(name);
+      .indexOf(id);
 
     const deleted = contacts[contactIndex];
     contacts.splice(contactIndex, 1);
-    writeFileAsync(config.todo.path, JSON.stringify(contacts));
+    writeFileAsync(config.contact.path, JSON.stringify(contacts));
     return deleted;
   }
 
-  public async saveContact(contact: IContact): Promise<void> {
+  public async saveContact(contact: IContact): Promise<IContact> {
     if (!contact.color) {
-      contact.color = "blue";
+      contact.color = this.getColor();
     }
 
     let contacts = await this.getContacts();
+    contact.lastupadate = new Date();
+    if (contact.id === 0) {
+      contact.id = this.getNextId(contacts);
+    }
+
     const isExisting = contacts.find((c) => {
       return c.name === contact.name;
     });
 
     if (isExisting) {
       contacts = contacts.map((existingContact: IContact) =>
-        existingContact.name === contact.name ? contact : existingContact
+        existingContact.id === contact.id ? contact : existingContact
       );
     } else {
       contacts.push(contact);
     }
 
     writeFileAsync(config.contact.path, JSON.stringify(contacts));
+    return contact;
+  }
+
+  private getColor(): string {
+    const rand = Math.floor(Math.random() * 6) + 1;
+    const colors = ["red", "blue", "green", "orange", "pink", "teal"];
+    return colors[rand];
+  }
+
+  private getNextId(contacts: IContact[]) {
+    const ids = contacts.map((c) => {
+      return c.id;
+    });
+
+    return Math.max(...ids) + 1;
   }
 }
 

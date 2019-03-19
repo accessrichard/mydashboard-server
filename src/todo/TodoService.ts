@@ -31,7 +31,7 @@ class TodoService {
       })
       .indexOf(id);
 
-    const deleted = todos[todoIndex]
+    const deleted = todos[todoIndex];
     todos.splice(todoIndex, 1);
     writeFileAsync(config.todo.path, JSON.stringify(todos));
     return deleted;

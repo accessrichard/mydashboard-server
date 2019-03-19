@@ -7,6 +7,7 @@ export interface IContact {
   color: string;
   isFavorite: boolean;
   lastupadate: Date;
+  id: number;
 }
 
 export interface ITodo {
