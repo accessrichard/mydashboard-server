@@ -30,7 +30,7 @@ class ContactController {
 
   public async delete(request: Request, response: Response, next: NextFunction) {
     try {
-      const contact = await this.service.delete(request.params.id);
+      const contact = await this.service.delete(request.params.name);
       response.json({ contact });
     } catch (e) {
       next(e);

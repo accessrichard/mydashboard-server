@@ -24,13 +24,13 @@ class ContactService {
     });
   }
 
-  public async delete(id: number): Promise<IContact> {
+  public async delete(name: string): Promise<IContact> {
     const contacts = await this.getContacts();
     const contactIndex = contacts
       .map((c) => {
-        return c.id;
+        return c.name;
       })
-      .indexOf(id);
+      .indexOf(name);
 
     const deleted = contacts[contactIndex];
     contacts.splice(contactIndex, 1);
@@ -55,7 +55,7 @@ class ContactService {
 
     if (isExisting) {
       contacts = contacts.map((existingContact: IContact) =>
-        existingContact.id === contact.id ? contact : existingContact
+        existingContact.name === contact.name ? contact : existingContact
       );
     } else {
       contacts.push(contact);
