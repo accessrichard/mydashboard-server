@@ -18,15 +18,16 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "tfsclient": "github:accessrichard/tfsclient"
   },
   "devDependencies": {
     "@types/express": "^4.16.1",
     "@types/jest": "^23.3.14",
-    "@types/node": "^10.12.30",
-    "jest": "^24.3.1",
+    "@types/node": "^10.14.4",
+    "jest": "^24.6.0",
     "ts-jest": "^23.10.5",
-    "tslint": "^5.13.1",
-    "typescript": "^3.3.3333"
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.1"
   }
 }
