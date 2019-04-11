@@ -19,6 +19,9 @@ export default {
   work: {
     auth: {} as INtlmAuth,
     baseUrl: "",
-    isDevMode: true
+    isDevMode: true,
+    project: "",
+    teams: [""],
+    workQuery:  "select [System.Id] from WorkItems where [System.State] = 'Active' and [System.AssignedTo] = @me"
   }
 };
