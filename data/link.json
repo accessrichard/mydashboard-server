@@ -24,5 +24,18 @@
                 "href": "https://news.yahoo.com"
             }
         ]
+    },
+    {
+        "text": "Vue",
+        "links": [
+            {
+                "text": "Vuetify",
+                "href": "https://vuetifyjs.com/en/"
+            },
+            {
+                "text": "Vue",
+                "href": "https://vuejs.org/"
+            }
+        ]
     }
 ]
