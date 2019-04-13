@@ -13,11 +13,30 @@ class WorkController {
   }
 
   public intializeRoutes() {
-    this.router.get(this.path, this.get.bind(this));
-    this.router.get(`${this.path}/:id`, this.getWorkItem.bind(this));
+    this.router.get(`${this.path}/list`, this.get.bind(this));
+    this.router.get(`${this.path}/mywork`, this.getMyWork.bind(this));
+    this.router.get(`${this.path}/item/:id`, this.getWorkItem.bind(this));
   }
 
   public async get(request: Request, response: Response, next: NextFunction) {
+    try {
+      const contact = await this.service.getWork();
+      response.json(contact);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async getMyWork(request: Request, response: Response, next: NextFunction) {
+    try {
+      const contact = await this.service.getMyWork();
+      response.json(contact);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async getIterations(request: Request, response: Response, next: NextFunction) {
     try {
       const contact = await this.service.getWork();
       response.json(contact);

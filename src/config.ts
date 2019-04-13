@@ -9,6 +9,9 @@ export default {
   contact: {
     path: path.join(process.cwd(), "data", "contact.json")
   },
+  link: {
+    path: path.join(process.cwd(), "data", "link.json")
+  },
   todo: {
     path: path.join(process.cwd(), "data", "todo.json")
   },
@@ -21,7 +24,8 @@ export default {
     baseUrl: "",
     isDevMode: true,
     project: "",
-    teams: [""],
-    workQuery:  "select [System.Id] from WorkItems where [System.State] = 'Active' and [System.AssignedTo] = @me"
+    queryAllActive: "select [System.Id] from WorkItems where [System.State] = 'Active'",
+    queryMyWork: "select [System.Id] from WorkItems where [System.State] = 'Active' and [System.AssignedTo] = @me",
+    teams: [""]
   }
 };

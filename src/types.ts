@@ -18,3 +18,13 @@ export interface ITodo {
   title: string;
   type: string;
 }
+
+export interface ILinkCategory {
+  text: string;
+  links: ILink[];
+}
+
+export interface ILink {
+  href: string;
+  text: string;
+}

@@ -18,7 +18,11 @@ class WorkService {
   }
 
   public async getWork(): Promise<IWorkItemFields[]> {
-    return await this.workItemApi.getWorkItemsByQuery(config.work.workQuery);
+    return await this.workItemApi.getWorkItemsByQuery(config.work.queryAllActive);
+  }
+
+  public async getMyWork(): Promise<IWorkItemFields[]> {
+    return await this.workItemApi.getWorkItemsByQuery(config.work.queryMyWork);
   }
 
   public async getWorkItem(id: number): Promise<IWorkItemFields> {
