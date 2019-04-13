@@ -1,1 +1,1 @@
-[{"name":"First Contact","id":null,"workPhone":"123-123-1234","email":"test@example.com","color":"pink","lastupadate":"2019-04-13T15:42:40.038Z"},{"name":"Second Contact","id":2,"workPhone":"123-123-1234","email":"test@example.com","lastupadate":"2019-04-13T15:42:55.482Z"}]
+[{"name":"First Contact","id":null,"workPhone":"123-123-1234","email":"test@example.com","color":"pink","lastupadate":"2019-04-13T15:42:40.038Z"},{"name":"Second Contact","id":2,"workPhone":"123-123-1234","email":"test@example.com","color":"blue","lastupadate":"2019-04-13T15:42:55.482Z"}]
