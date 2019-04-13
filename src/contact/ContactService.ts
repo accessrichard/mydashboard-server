@@ -66,7 +66,7 @@ class ContactService {
   }
 
   private getColor(): string {
-    const rand = Math.floor(Math.random() * 6) + 1;
+    const rand = Math.floor(Math.random() * 6);
     const colors = ["red", "blue", "green", "orange", "pink", "teal"];
     return colors[rand];
   }
