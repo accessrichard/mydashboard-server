@@ -1,0 +1,28 @@
+[
+    {
+        "text": "Search Engines",
+        "links": [
+            {
+                "text": "Google",
+                "href": "https://google.com"
+            },
+            {
+                "text": "Yahoo!",
+                "href": "https://yahoo.com"
+            }
+        ]
+    },
+    {
+        "text": "News",
+        "links": [
+            {
+                "text": "Google News",
+                "href": "https://news.google.com"
+            },
+            {
+                "text": "Yahoo! News",
+                "href": "https://news.yahoo.com"
+            }
+        ]
+    }
+]

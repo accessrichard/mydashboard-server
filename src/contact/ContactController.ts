@@ -13,10 +13,11 @@ class ContactController {
   }
 
   public intializeRoutes() {
+    const nameRoute = `${this.path}/:name`;
     this.router.get(this.path, this.list.bind(this));
-    this.router.get(`${this.path}/:name`, this.get.bind(this));
+    this.router.get(nameRoute, this.get.bind(this));
     this.router.post(this.path, this.post.bind(this));
-    this.router.delete(this.path + "/:name", this.delete.bind(this));
+    this.router.delete(nameRoute, this.delete.bind(this));
   }
 
   public async get(request: Request, response: Response, next: NextFunction) {
