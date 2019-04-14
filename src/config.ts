@@ -24,8 +24,7 @@ export default {
     baseUrl: "",
     isDevMode: true,
     project: "",
-    queryAllActive: "select [System.Id] from WorkItems where [System.State] = 'Active'",
-    queryMyWork: "select [System.Id] from WorkItems where [System.State] = 'Active' and [System.AssignedTo] = @me",
+    query: "select [System.Id] from WorkItems where [System.State] <> '' ",
     teams: [""]
   }
 };

@@ -28,3 +28,10 @@ export interface ILink {
   href: string;
   text: string;
 }
+
+export interface IWorkFilter {
+  iterations?: string[];
+  user?: string;
+  statuses?: string[];
+  types?: string[];
+}

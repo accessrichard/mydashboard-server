@@ -1,9 +1,16 @@
 
 import { container } from "tfsclient/dist/inversify.config";
 import { container as mockContainer } from "tfsclient/dist/inversify.mock.config";
-import { IWorkItemApi, TYPES } from "tfsclient/dist/src/types";
-import { INtlmAuth, IWorkItemFields } from "tfsclient/dist/src/types";
+import {
+  IIterationApi,
+  IIterationPath,
+  INtlmAuth,
+  IWorkItemApi,
+  IWorkItemFields,
+  TYPES
+} from "tfsclient/dist/src/types";
 import config from "../config";
+import { IWorkFilter } from "../types";
 
 container.bind<string>(TYPES.BaseUrl).toConstantValue(config.work.baseUrl);
 container.bind<INtlmAuth>(TYPES.AuthConfig).toConstantValue(config.work.auth);
@@ -13,20 +20,50 @@ const activeContainer = config.work.isDevMode ? mockContainer : container;
 class WorkService {
   private workItemApi: IWorkItemApi;
 
+  private iterationApi: IIterationApi;
+
   constructor() {
     this.workItemApi = activeContainer.get<IWorkItemApi>(TYPES.WorkItemApi);
+    this.iterationApi = activeContainer.get<IIterationApi>(TYPES.IterationApi);
   }
 
   public async getWork(): Promise<IWorkItemFields[]> {
-    return await this.workItemApi.getWorkItemsByQuery(config.work.queryAllActive);
+    return await this.query({
+      statuses: ["Active"],
+      types: ["Bug"],
+      user: "@me"
+    });
   }
 
-  public async getMyWork(): Promise<IWorkItemFields[]> {
-    return await this.workItemApi.getWorkItemsByQuery(config.work.queryMyWork);
+  public async query(filter: IWorkFilter): Promise<IWorkItemFields[]> {
+    let queryStr = config.work.query;
+    if (filter.user) {
+      queryStr += ` and [System.AssignedTo] = ${filter.user}`;
+    }
+
+    if (filter.iterations) {
+      queryStr += ` and [System.IterationPath] in ('${filter.iterations.join("\',\'")}')`;
+    }
+
+    if (filter.statuses) {
+      queryStr += ` and [System.Status] in ('${filter.statuses.join("\',\'")}')`;
+    }
+
+    if (filter.types) {
+      queryStr += ` and [System.WorkItemType] in ('${filter.types.join("\',\'")}')`;
+    }
+
+    console.log(queryStr);
+
+    return await this.workItemApi.getWorkItemsByQuery(queryStr);
   }
 
   public async getWorkItem(id: number): Promise<IWorkItemFields> {
     return await this.workItemApi.getExpandedWorkItem(id);
+  }
+
+  public async getCurrentIterations(): Promise<IIterationPath[]> {
+    return await this.iterationApi.getCurrentIterations(config.work.project, config.work.teams);
   }
 }
 
