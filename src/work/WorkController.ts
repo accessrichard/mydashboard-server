@@ -30,7 +30,6 @@ class WorkController {
 
   public async query(request: Request, response: Response, next: NextFunction) {
     try {
-      console.log(request.body);
       const contact = await this.service.query(request.body.filter);
       response.json(contact);
     } catch (e) {

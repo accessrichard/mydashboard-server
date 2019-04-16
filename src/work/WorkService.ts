@@ -46,7 +46,7 @@ class WorkService {
     }
 
     if (filter.statuses) {
-      queryStr += ` and [System.Status] in ('${filter.statuses.join("\',\'")}')`;
+      queryStr += ` and [System.State] in ('${filter.statuses.join("\',\'")}')`;
     }
 
     if (filter.types) {
