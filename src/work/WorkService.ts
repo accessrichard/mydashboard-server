@@ -62,6 +62,10 @@ class WorkService {
     return await this.workItemApi.getExpandedWorkItem(id);
   }
 
+  public async getIterations(): Promise<IIterationPath[]> {
+    return await this.iterationApi.getIterationsByTeam(config.work.project, config.work.teams);
+  }
+
   public async getCurrentIterations(): Promise<IIterationPath[]> {
     return await this.iterationApi.getCurrentIterations(config.work.project, config.work.teams);
   }

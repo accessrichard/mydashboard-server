@@ -1,3 +1,4 @@
+import { IIterationPath } from 'tfsclient/dist/src/types';
 import express from "express";
 import { NextFunction, Request, Response } from "express";
 import WorkService from "./WorkService";
@@ -39,7 +40,13 @@ class WorkController {
 
   public async getIterations(request: Request, response: Response, next: NextFunction) {
     try {
-      const contact = await this.service.getCurrentIterations();
+      let contact: IIterationPath[];
+      if (request.params.active) {
+        contact = await this.service.getCurrentIterations();
+      } else {
+        contact = await this.service.getIterations();
+      }
+
       response.json(contact);
     } catch (e) {
       next(e);
