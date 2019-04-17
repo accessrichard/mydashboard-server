@@ -1,6 +1,6 @@
-import { IIterationPath } from 'tfsclient/dist/src/types';
 import express from "express";
 import { NextFunction, Request, Response } from "express";
+import { IIterationPath } from "tfsclient/dist/src/types";
 import WorkService from "./WorkService";
 
 class WorkController {
@@ -18,6 +18,7 @@ class WorkController {
     this.router.post(`${this.path}/query`, this.query.bind(this));
     this.router.get(`${this.path}/item/:id`, this.getWorkItem.bind(this));
     this.router.get(`${this.path}/iterations`, this.getIterations.bind(this));
+    this.router.get(`${this.path}/members`, this.getMembers.bind(this));
   }
 
   public async get(request: Request, response: Response, next: NextFunction) {
@@ -56,6 +57,15 @@ class WorkController {
   public async getWorkItem(request: Request, response: Response, next: NextFunction) {
     try {
       const contact = await this.service.getWorkItem(request.params.id);
+      response.json(contact);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async getMembers(request: Request, response: Response, next: NextFunction) {
+    try {
+      const contact = await this.service.getMembers();
       response.json(contact);
     } catch (e) {
       next(e);

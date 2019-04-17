@@ -4,7 +4,9 @@ import { container as mockContainer } from "tfsclient/dist/inversify.mock.config
 import {
   IIterationApi,
   IIterationPath,
+  IMember,
   INtlmAuth,
+  ITeamApi,
   IWorkItemApi,
   IWorkItemFields,
   TYPES
@@ -22,9 +24,12 @@ class WorkService {
 
   private iterationApi: IIterationApi;
 
+  private teamApi: ITeamApi;
+
   constructor() {
     this.workItemApi = activeContainer.get<IWorkItemApi>(TYPES.WorkItemApi);
     this.iterationApi = activeContainer.get<IIterationApi>(TYPES.IterationApi);
+    this.teamApi = activeContainer.get<ITeamApi>(TYPES.TeamApi);
   }
 
   public async getWork(): Promise<IWorkItemFields[]> {
@@ -68,6 +73,11 @@ class WorkService {
 
   public async getCurrentIterations(): Promise<IIterationPath[]> {
     return await this.iterationApi.getCurrentIterations(config.work.project, config.work.teams);
+  }
+
+  public async getMembers(): Promise<string[]> {
+    const members = await this.teamApi.getTeamMembers(config.work.project, config.work.teams);
+    return members.map((member) => member.displayName);
   }
 }
 
