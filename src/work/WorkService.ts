@@ -36,14 +36,14 @@ class WorkService {
     return await this.query({
       statuses: ["Active"],
       types: ["Bug"],
-      user: "@me"
+      users: ["@me"]
     });
   }
 
   public async query(filter: IWorkFilter): Promise<IWorkItemFields[]> {
     let queryStr = config.work.query;
-    if (filter.user) {
-      queryStr += ` and [System.AssignedTo] = ${filter.user}`;
+    if (filter.users && filter.users.length > 0) {
+      queryStr += ` and [System.AssignedTo] ${this.getUserClause(filter.users)}`;
     }
 
     if (filter.iterations) {
@@ -78,6 +78,14 @@ class WorkService {
   public async getMembers(): Promise<string[]> {
     const members = await this.teamApi.getTeamMembers(config.work.project, config.work.teams);
     return members.map((member) => member.displayName);
+  }
+
+  private getUserClause(users: string[]): string {
+    if (users.length === 1 && users.includes("@me")) {
+      return " = @me";
+    }
+
+    return "in ('" + users.join("','") + "')";
   }
 }
 
