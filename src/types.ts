@@ -34,4 +34,5 @@ export interface IWorkFilter {
   users?: string[];
   statuses?: string[];
   types?: string[];
+  text?: string;
 }

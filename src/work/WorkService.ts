@@ -46,16 +46,20 @@ class WorkService {
       queryStr += ` and [System.AssignedTo] ${this.getUserClause(filter.users)}`;
     }
 
-    if (filter.iterations) {
+    if (filter.iterations && filter.iterations.length > 0) {
       queryStr += ` and [System.IterationPath] in ('${filter.iterations.join("\',\'")}')`;
     }
 
-    if (filter.statuses) {
+    if (filter.statuses && filter.statuses.length > 0) {
       queryStr += ` and [System.State] in ('${filter.statuses.join("\',\'")}')`;
     }
 
-    if (filter.types) {
+    if (filter.types && filter.types.length > 0) {
       queryStr += ` and [System.WorkItemType] in ('${filter.types.join("\',\'")}')`;
+    }
+
+    if (filter.text) {
+      queryStr += ` and [System.Title] contains '${filter.text}'`;
     }
 
     console.log(queryStr);
