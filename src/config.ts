@@ -1,5 +1,4 @@
 import path from "path";
-import { INtlmAuth } from "tfsclient/dist/src/types";
 
 export default {
   app: {
@@ -18,13 +17,5 @@ export default {
   wiki: {
     directory: path.join(process.cwd(), "data", "wiki"),
     extension: ".md"
-  },
-  work: {
-    auth: {} as INtlmAuth,
-    baseUrl: "",
-    isDevMode: true,
-    project: "",
-    query: "select [System.Id] from WorkItems where [System.State] <> '' ",
-    teams: [""]
   }
 };
